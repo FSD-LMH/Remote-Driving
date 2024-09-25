@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket 적용</title>
+    <script>
+        //웹소캣 통신
+        var ws = new WebSocket("ws://localhost:3001")
+
+        function sendStartMsg() {
+                ws.onmessage = async (eve) => {
+                var json = eve.data;
+                var result = JSON.parse(json);
+                document.getElementById("result").value = result[0].id;
+            }
+        }
+
+        function sendEndMsg() {
+            ws.close();
+        }
+    </script>
+</head>
+<body>
+    <h1>WebSocket 적용</h1>
+
+    <!-- 통신을 보낼 버튼 -->
+    <p>
+        <button onclick="sendStartMsg()">원격 주행 시작</button>
+        <button onclick="sendEndMsg()">원격 주행 종료</button>
+    </p>
+
+    <input id="result" name="result" type="text">
+
+</body>
+</html>
